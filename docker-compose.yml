@@ -14,10 +14,10 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-    command: bash -c "python /usr/src/menu_app/manage.py migrate --noinput &&
-             python /usr/src/menu_app/manage.py runserver 0.0.0.0:8000"
+    command: bash -c "python /usr/src/medusa_light/manage.py migrate --noinput &&
+             python /usr/src/medusa_light/manage.py runserver 0.0.0.0:8000"
     volumes: 
-      - .:/usr/src/menu_app
+      - .:/usr/src/medusa_light
     ports: 
       - 8000:8000
 

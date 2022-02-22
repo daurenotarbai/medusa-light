@@ -3,14 +3,21 @@ FROM python:3.8
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-WORKDIR /usr/src/medusa_light
-
-COPY ./requirements.txt /usr/src/requirements.txt
-RUN pip install -r /usr/src/requirements.txt
-
 COPY . /usr/src/medusa_light
+WORKDIR /usr/src/medusa_light
+RUN /usr/local/bin/python -m pip install --upgrade pip && \
+    pip install -r /usr/src/medusa_light/requirements.txt && \
+    mkdir -p /vol/web/static && \
+    adduser --disabled-password --no-create-home app_user && \
+    chown -R app_user:app_user /vol && \
+    chmod -R 755 /vol/web && \
+    chmod -R +x /usr/src/medusa_light/scripts
 
-EXPOSE 8000
-# CMD ["python","manage.py","migrate"]
-# CMD ["python","manage.py","runserver","0.0.0.0:8000"]
+ENV PATH="/usr/src/medusa_light/scripts:${PATH}"
+
+USER app_user
+
+CMD ["entrypoint.sh"]
+
+
 

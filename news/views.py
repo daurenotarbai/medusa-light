@@ -18,7 +18,7 @@ class ArticleView(LoginRequiredMixin, CreateView):
     model = Article
     template_name = 'news/article_list.html'
     form_class = ArticleForm
-    success_url = 'manager'
+    success_url = 'admin'
 
     def get_context_data(self, **kwargs):
         kwargs['article_list'] = Article.objects.order_by('-date')

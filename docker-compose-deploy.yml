@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  db:
+    container_name: medusa_light_db_prod
+    image: postgres:12
+    restart: always
+    volumes:
+      - pg_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_PASSWORD: ${PSQL_PASS}
+      POSTGRES_USER: ${PSQL_USER}
+      POSTGRES_DB: ${PSQL_DB}
+    ports:
+      - 5432:5432
+  web:
+    container_name: medusa_light_web_prod
+    build:
+      context: ./
+    restart: always
+    volumes:
+      - static_data:/vol/web
+    environment:
+      SECRET_KEY: ${SECRET_KEY}
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS}
+      PSQL_PASS: ${PSQL_PASS}
+      PSQL_USER: ${PSQL_USER}
+      PSQL_DB: ${PSQL_DB}
+      PSQL_HOST: ${PSQL_HOST}
+
+  proxy:
+    build:
+      context: ./proxy
+    restart: always
+    volumes:
+      - static_data:/vol/static
+    ports:
+      - 8080:8080
+    depends_on:
+      - web
+volumes:
+  pg_data:
+  static_data:

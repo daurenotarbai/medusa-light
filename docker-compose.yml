@@ -2,26 +2,33 @@ version: '3.8'
 
 services: 
   db:
+    container_name: medusa_light_db_dev
     image: postgres:12
     volumes: 
       - pg_data:/var/lib/postgresql/data/
-    environment: 
+    ports:
+      - 5432:5432
+    environment:
       POSTGRES_PASSWORD: admin123
       POSTGRES_USER: postgres
-      POSTGRES_DB : medusa_light_db
+      POSTGRES_DB: medusa_light_db_dev
+
   web:
-    container_name: medusa_light_web
+    container_name: medusa_light_web_dev
     build:
       context: ./
-      dockerfile: Dockerfile
     command: bash -c "python /usr/src/medusa_light/manage.py migrate --noinput &&
              python /usr/src/medusa_light/manage.py runserver 0.0.0.0:8000"
     volumes: 
       - .:/usr/src/medusa_light
     ports: 
       - 8000:8000
-
     depends_on: 
       - db
+    environment:
+      PSQL_PASS: admin123
+      PSQL_USER: postgres
+      PSQL_DB: medusa_light_db_dev
+      PSQL_HOST: db
 volumes: 
   pg_data:

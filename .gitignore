@@ -3,6 +3,6 @@ venv/
 __pycache__/
 migrations/
 media/
-.env.dev
-.env.prod
+.env
+
 

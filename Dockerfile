@@ -12,7 +12,7 @@ RUN /usr/local/bin/python -m pip install --upgrade pip && \
     chown -R app_user:app_user /vol && \
     chmod -R 755 /vol/web && \
     chmod -R +x /usr/src/medusa_light/scripts && \
-    chown /usr/src/medusa_light/news/migrations
+    chown -R 777 /usr/src/medusa_light/news/migrations
 
 ENV PATH="/usr/src/medusa_light/scripts:${PATH}"
 

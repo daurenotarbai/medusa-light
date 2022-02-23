@@ -11,7 +11,8 @@ RUN /usr/local/bin/python -m pip install --upgrade pip && \
     adduser --disabled-password --no-create-home app_user && \
     chown -R app_user:app_user /vol && \
     chmod -R 755 /vol/web && \
-    chmod -R +x /usr/src/medusa_light/scripts
+    chmod -R +x /usr/src/medusa_light/scripts && \
+    chown /usr/src/medusa_light/news/migrations
 
 ENV PATH="/usr/src/medusa_light/scripts:${PATH}"
 

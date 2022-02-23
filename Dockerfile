@@ -13,7 +13,6 @@ RUN /usr/local/bin/python -m pip install --upgrade pip && \
     chmod -R 755 /vol/web && \
     chmod -R +x /usr/src/medusa_light/scripts && \
 
-
 ENV PATH="/usr/src/medusa_light/scripts:${PATH}"
 
 USER app_user

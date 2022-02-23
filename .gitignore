@@ -1,8 +1,8 @@
 venv/
 .idea/
 __pycache__/
-migrations/
 media/
 .env
 
-
+migrations/*
+!migrations/__init__.py
